@@ -1,17 +1,14 @@
 package jinwoo.basetown.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter @Setter
+@NoArgsConstructor
 @ToString(of = {"id", "name"})
 public class Team {
 
@@ -21,10 +18,17 @@ public class Team {
     @Column(name = "team_name")
     private String name;
 
+    private String city;
+
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
 
     public Team(String name) {
         this.name = name;
+    }
+
+    public Team(String name, String city) {
+        this.name = name;
+        this.city = city;
     }
 }
