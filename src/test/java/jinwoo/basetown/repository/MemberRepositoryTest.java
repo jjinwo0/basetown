@@ -1,7 +1,8 @@
-package jinwoo.basetown.service;
+package jinwoo.basetown.repository;
 
 import jinwoo.basetown.entity.Member;
 import jinwoo.basetown.repository.MemberRepository;
+import jinwoo.basetown.service.MemberService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
