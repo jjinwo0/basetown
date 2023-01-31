@@ -1,7 +1,6 @@
 package jinwoo.basetown.entity;
 
 import lombok.*;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -9,7 +8,6 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Getter @Setter
 @RequiredArgsConstructor
-@Document(collation = "member")
 @ToString(of = {"id", "username", "age"})
 public class Member {
 
