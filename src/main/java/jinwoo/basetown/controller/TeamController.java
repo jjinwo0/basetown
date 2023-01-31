@@ -28,6 +28,7 @@ public class TeamController {
         team.setName(form.getName());
         team.setCity(form.getCity());
 
-
+        teamRepository.save(team);
+        return "redirect:/";
     }
 }
