@@ -1,11 +1,13 @@
 package jinwoo.basetown.service;
 
+import jinwoo.basetown.dto.MemberForm;
 import jinwoo.basetown.entity.Member;
 import jinwoo.basetown.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -17,9 +19,19 @@ public class MemberService {
 
     //회원가입
     @Transactional //readOnly 해제
-    public Long join(Member member){
+    public Long join(@Valid MemberForm form){
+
+        Member member = new Member();
+        member.setUsername(form.getUsername());
+        member.setName(form.getName());
+        member.setPassword(form.getPassword());
+        member.setAddress(form.getAddress());
+        member.setAge(form.getAge());
+        member.setPosition(form.getPosition());
+
         validateDuplicateMember(member); //중복 회원 검사
         memberRepository.save(member);
+
         return member.getId();
     }
 
@@ -40,19 +52,23 @@ public class MemberService {
         return memberRepository.findById(memberId);
     }
 
-    @Transactional
-    public void update(Long id, String name, int age, String address, String position){
-        Member member = memberRepository.findById(id);
-        member.setUsername(name);
-        member.setAge(age);
-        member.setAddress(address);
-        member.setPosition(position);
-    }
-
+    //회원 로그인
     public Member signin(String username, String password){
         return memberRepository.findByUsername(username).stream()
                 .filter(m -> m.getPassword().equals(password))
                 .findAny()
                 .orElse(null);
+    }
+
+    //회원 정보 수정
+    @Transactional
+    public void modify(Long id, @Valid MemberForm form){
+        Member findMember = memberRepository.findById(id);
+
+        findMember.setName(form.getName());
+        findMember.setUsername(form.getUsername());
+        findMember.setAge(form.getAge());
+        findMember.setAddress(form.getAddress());
+        findMember.setPosition(form.getPosition());
     }
 }

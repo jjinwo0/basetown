@@ -2,7 +2,6 @@ package jinwoo.basetown.controller;
 
 import jinwoo.basetown.entity.Member;
 import jinwoo.basetown.session.SessionConst;
-import jinwoo.basetown.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,8 +15,6 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 @Slf4j
 public class HomeController {
-
-    private final SessionManager sessionManager;
 
     @GetMapping("/")
     public String home(HttpServletRequest request, Model model){

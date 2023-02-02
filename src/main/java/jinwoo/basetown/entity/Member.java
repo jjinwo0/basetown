@@ -31,6 +31,15 @@ public class Member {
         this.username = username;
     }
 
+    public Member(String name, String username, String password, int age, String address, String position) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.age = age;
+        this.address = address;
+        this.position = position;
+    }
+
     public Member(String username, int age, String address, String position) {
         this.username = username;
         this.age = age;

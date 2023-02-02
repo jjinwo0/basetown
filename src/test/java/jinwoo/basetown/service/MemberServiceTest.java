@@ -1,5 +1,6 @@
 package jinwoo.basetown.service;
 
+import jinwoo.basetown.dto.MemberForm;
 import jinwoo.basetown.entity.Member;
 import jinwoo.basetown.repository.MemberRepository;
 import org.assertj.core.api.Assertions;
@@ -29,22 +30,23 @@ public class MemberServiceTest {
     
     @Test
     public void 회원가입(){
-        Member member = new Member("memberA", 20, "Seoul", "SP", null);
+        MemberForm formMember = new MemberForm("memberA", "asdf", "1234", "Seoul", 23, "SP");
 
-        Long joinId = memberService.join(member);
+        Long joinId = memberService.join(formMember);
+        Member findMember = memberRepository.findById(joinId);
 
         em.flush();
 
-        assertThat(member.getId()).isEqualTo(joinId);
+        assertThat(findMember.getId()).isEqualTo(joinId);
     }
 
     @Test
     public void 중복_회원_예외(){
-        Member member1 = new Member("memberA");
-        Member member2 = new Member("memberA");
+        MemberForm memberA = new MemberForm("memberA");
+        MemberForm memberB = new MemberForm("memberA");
 
-        memberService.join(member1);
-        memberService.join(member2);
+        memberService.join(memberA);
+        memberService.join(memberB);
 
         fail("중복 회원 가입 시, 예외가 발생해야 함.");
     }

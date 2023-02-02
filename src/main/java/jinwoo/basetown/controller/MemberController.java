@@ -7,7 +7,6 @@ import jinwoo.basetown.entity.Member;
 import jinwoo.basetown.repository.MemberRepository;
 import jinwoo.basetown.service.MemberService;
 import jinwoo.basetown.session.SessionConst;
-import jinwoo.basetown.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -32,33 +31,27 @@ public class MemberController {
 
     private final MemberRepository memberRepository;
     private final MemberService memberService;
-    private final SessionManager sessionManager;
 
+    //회원 가입 폼 매핑
     @GetMapping("/members/new")
     public String createForm(Model model){
         model.addAttribute("memberForm", new MemberForm());
         return "members/createMemberForm";
     }
 
+    //회원 가입 매핑
     @PostMapping("members/new")
     public String create(@Valid MemberForm form, BindingResult result){
 
         if (result.hasErrors())
             return "members/createMemberForm";
 
-        Member member = new Member();
-        member.setUsername(form.getUsername());
-        member.setName(form.getName());
-        member.setPassword(form.getPassword());
-        member.setAddress(form.getAddress());
-        member.setAge(form.getAge());
-        member.setPosition(form.getPosition());
-
-        memberService.join(member);
+        memberService.join(form);
 
         return "redirect:/";
     }
 
+    //회원 조회 폼 매핑
     @GetMapping("/members")
     public String list(Model model){
         List<Member> members = memberRepository.findAll();
@@ -66,12 +59,14 @@ public class MemberController {
         return "/members/memberList";
     }
 
+    //회원 로그인 폼 매핑
     @GetMapping("/signin")
     public String signInForm(Model model){
         model.addAttribute("signInForm", new SigninForm()); //SigninForm 정보를 signInForm 이라는 이름으로 전달
         return "members/signinForm";
     }
 
+    //회원 로그인 매핑
     @PostMapping("/signin")
     public String signIn(@Valid SigninForm form, BindingResult result, HttpServletRequest request){
         if (result.hasErrors()){
@@ -99,6 +94,7 @@ public class MemberController {
     }
 
 
+    //로그아웃 매핑
     @GetMapping("/signout")
     public String logout(HttpServletRequest request){
         //세션이 없더라도 생성되면 안되기 때문에 false 사용
@@ -107,5 +103,16 @@ public class MemberController {
             session.invalidate();
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/members/modify")
+    public String modifyForm(Model model){
+        model.addAttribute("modifyForm", new MemberForm());
+        return "/members/modifyMemberForm";
+    }
+
+    @PostMapping("/members/modify")
+    public String modify(@Valid MemberForm form, BindingResult result, HttpServletRequest request){
+        return null;
     }
 }
