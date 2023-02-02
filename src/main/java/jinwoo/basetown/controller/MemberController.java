@@ -12,10 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -88,7 +85,7 @@ public class MemberController {
         HttpSession session = request.getSession();
 
         //세션에 로그인 회원 정보 보관
-        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+        session.setAttribute("loginMember", loginMember);
 
         return "redirect:/";
     }
@@ -105,6 +102,32 @@ public class MemberController {
         return "redirect:/";
     }
 
+    //회원 수정을 위한 회원 인증 폼
+    @GetMapping("/members/modify/auth")
+    public String authForModifyForm(Model model){
+        model.addAttribute("authForm", new MemberForm());
+        return "/members/authForModifyForm";
+    }
+
+    //회원 수정을 위한 회원 인증 매핑
+    @PostMapping("/members/modify/auth")
+    public String authForModifyForm(@Valid MemberForm form, BindingResult result){
+        if (result.hasErrors()){
+            log.info("에러 발생");
+            return "members/authForModifyForm";
+        }
+
+        Member authMember = memberService.auth(form);
+        if (authMember == null){
+            log.info("존재하지 않는 회원입니다.");
+            return "members/authForModifyForm";
+        }
+
+        return "members/modifyMemberForm";
+
+    }
+
+
     @GetMapping("/members/modify")
     public String modifyForm(Model model){
         model.addAttribute("modifyForm", new MemberForm());
@@ -112,7 +135,14 @@ public class MemberController {
     }
 
     @PostMapping("/members/modify")
-    public String modify(@Valid MemberForm form, BindingResult result, HttpServletRequest request){
-        return null;
+    public String modify(@Valid MemberForm form, @SessionAttribute("loginMember") Member member, BindingResult result){
+        if (result.hasErrors()){
+            log.info("에러 발생");
+            return "members/modifyMemberForm";
+        }
+
+        memberService.modify(member.getId(), form);
+
+        return "redirect:/";
     }
 }

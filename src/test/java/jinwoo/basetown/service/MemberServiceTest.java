@@ -50,4 +50,24 @@ public class MemberServiceTest {
 
         fail("중복 회원 가입 시, 예외가 발생해야 함.");
     }
+
+    @Test
+    public void 회원정보인증(){
+        MemberForm form = new MemberForm("memberA", "1234");
+        Long join = memberService.join(form);
+        Member findMember = memberRepository.findById(join);
+
+        Member auth = memberService.auth(form);
+
+        assertThat(auth.getPassword()).isEqualTo(findMember.getPassword());
+    }
+
+    @Test
+    public void 회원정보수정(){
+        MemberForm form = new MemberForm("memberA", "1234");
+        Long id = memberService.join(form);
+        Member findMember = memberRepository.findById(id);
+
+        memberService.modify(findMember.getId(), new MemberForm("memberB", "3456"));
+    }
 }

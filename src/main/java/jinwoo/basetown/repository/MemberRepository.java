@@ -36,4 +36,7 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     @Query("select m from Member m where m.username = :username and m.password = :password")
     Member findByUsernameAndPassword(String username, String password);
 
+    @Query("select m from Member m where m.password = :password")
+    Member findByPassword(String password);
+
 }

@@ -23,6 +23,11 @@ public class MemberForm {
         this.username = username;
     }
 
+    public MemberForm(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public MemberForm(String name, String username, String password, String address, int age, String position) {
         this.name = name;
         this.username = username;

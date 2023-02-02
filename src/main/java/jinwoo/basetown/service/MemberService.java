@@ -71,4 +71,9 @@ public class MemberService {
         findMember.setAddress(form.getAddress());
         findMember.setPosition(form.getPosition());
     }
+
+    //회원 인증
+    public Member auth(@Valid MemberForm form){
+        return memberRepository.findByPassword(form.getPassword());
+    }
 }
