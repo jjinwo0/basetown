@@ -1,5 +1,6 @@
 package jinwoo.basetown.service;
 
+import jinwoo.basetown.dto.AuthForm;
 import jinwoo.basetown.dto.MemberForm;
 import jinwoo.basetown.entity.Member;
 import jinwoo.basetown.repository.MemberRepository;
@@ -53,8 +54,10 @@ public class MemberServiceTest {
 
     @Test
     public void 회원정보인증(){
-        MemberForm form = new MemberForm("memberA", "1234");
-        Long join = memberService.join(form);
+        AuthForm form = new AuthForm("memberA", "1234");
+        MemberForm memberForm = new MemberForm(form.getUsername(), form.getPassword());
+
+        Long join = memberService.join(memberForm);
         Member findMember = memberRepository.findById(join);
 
         Member auth = memberService.auth(form);

@@ -1,5 +1,6 @@
 package jinwoo.basetown.service;
 
+import jinwoo.basetown.dto.AuthForm;
 import jinwoo.basetown.dto.MemberForm;
 import jinwoo.basetown.entity.Member;
 import jinwoo.basetown.repository.MemberRepository;
@@ -73,7 +74,7 @@ public class MemberService {
     }
 
     //회원 인증
-    public Member auth(@Valid MemberForm form){
+    public Member auth(@Valid AuthForm form){
         return memberRepository.findByPassword(form.getPassword());
     }
 }

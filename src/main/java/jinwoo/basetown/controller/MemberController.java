@@ -1,5 +1,6 @@
 package jinwoo.basetown.controller;
 
+import jinwoo.basetown.dto.AuthForm;
 import jinwoo.basetown.dto.MemberDto;
 import jinwoo.basetown.dto.MemberForm;
 import jinwoo.basetown.dto.SigninForm;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -105,13 +107,13 @@ public class MemberController {
     //회원 수정을 위한 회원 인증 폼
     @GetMapping("/members/modify/auth")
     public String authForModifyForm(Model model){
-        model.addAttribute("authForm", new MemberForm());
+        model.addAttribute("authForm", new AuthForm());
         return "/members/authForModifyForm";
     }
 
     //회원 수정을 위한 회원 인증 매핑
     @PostMapping("/members/modify/auth")
-    public String authForModifyForm(@Valid MemberForm form, BindingResult result){
+    public String authForModifyForm(@Valid @ModelAttribute("authForm") AuthForm form, BindingResult result){
         if (result.hasErrors()){
             log.info("에러 발생");
             return "members/authForModifyForm";
@@ -123,7 +125,7 @@ public class MemberController {
             return "members/authForModifyForm";
         }
 
-        return "members/modifyMemberForm";
+        return "redirect:/members/modify";
 
     }
 
