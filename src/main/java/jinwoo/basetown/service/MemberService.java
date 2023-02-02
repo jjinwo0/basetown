@@ -48,4 +48,11 @@ public class MemberService {
         member.setAddress(address);
         member.setPosition(position);
     }
+
+    public Member signin(String username, String password){
+        return memberRepository.findByUsername(username).stream()
+                .filter(m -> m.getPassword().equals(password))
+                .findAny()
+                .orElse(null);
+    }
 }

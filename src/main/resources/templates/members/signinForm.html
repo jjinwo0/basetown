@@ -8,7 +8,7 @@
 <body>
 <div class="container">
   <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-  <form role="form" action="/members/new" th:object="${signInForm}" method="post">
+  <form role="form" action="/signin" th:object="${signInForm}" method="post">
 
     <div class="form-group">
       <label th:for="username">ID</label>
