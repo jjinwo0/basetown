@@ -53,14 +53,6 @@ public class MemberService {
         return memberRepository.findById(memberId);
     }
 
-    //회원 로그인
-    public Member signin(String username, String password){
-        return memberRepository.findByUsername(username).stream()
-                .filter(m -> m.getPassword().equals(password))
-                .findAny()
-                .orElse(null);
-    }
-
     //회원 정보 수정
     @Transactional
     public void modify(Long id, @Valid MemberForm form){
