@@ -1,9 +1,13 @@
 package jinwoo.basetown.service;
 
 import jinwoo.basetown.dto.AuthForm;
+import jinwoo.basetown.dto.JoinTeamForm;
 import jinwoo.basetown.dto.MemberForm;
 import jinwoo.basetown.entity.Member;
+import jinwoo.basetown.entity.Role;
+import jinwoo.basetown.entity.Team;
 import jinwoo.basetown.repository.MemberRepository;
+import jinwoo.basetown.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +21,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final TeamRepository teamRepository;
 
     //회원가입
     @Transactional //readOnly 해제
@@ -63,6 +68,14 @@ public class MemberService {
         findMember.setAge(form.getAge());
         findMember.setAddress(form.getAddress());
         findMember.setPosition(form.getPosition());
+    }
+
+    @Transactional
+    public void modifyForJoinTeam(Long id, @Valid JoinTeamForm form){
+        Member findMember = memberRepository.findById(id);
+        Team findTeam = teamRepository.findTeamByName(form.getName());
+
+        findMember.setTeam(findTeam);
     }
 
     //회원 인증

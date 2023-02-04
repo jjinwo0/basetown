@@ -8,8 +8,9 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Getter @Setter
 @RequiredArgsConstructor
+@AllArgsConstructor
 @ToString(of = {"id", "username", "age"})
-public class Member {
+public class Member extends TimeEntity{
 
     @Id @GeneratedValue
     @Column(name = "member_id")
@@ -22,11 +23,13 @@ public class Member {
     private int age;
     private String address;
     private String position;
+    private Role role;
 
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
 
+    //Constructor
     public Member(String username) {
         this.username = username;
     }
@@ -69,6 +72,7 @@ public class Member {
         this.team = team;
     }
 
+    //연관관계 메서드
     public void changeTeam(Team team){
         this.team = team;
         team.getMembers().add(this);

@@ -1,12 +1,10 @@
 package jinwoo.basetown.controller;
 
-import jinwoo.basetown.dto.AuthForm;
-import jinwoo.basetown.dto.MemberDto;
-import jinwoo.basetown.dto.MemberForm;
-import jinwoo.basetown.dto.SigninForm;
+import jinwoo.basetown.dto.*;
 import jinwoo.basetown.entity.Member;
 import jinwoo.basetown.repository.MemberRepository;
 import jinwoo.basetown.service.MemberService;
+import jinwoo.basetown.service.TeamService;
 import jinwoo.basetown.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -98,6 +96,21 @@ public class MemberController {
         }
 
         memberService.modify(member.getId(), form);
+
+        return "redirect:/";
+    }
+
+    //팀 가입 폼 매핑
+    @GetMapping("/members/team/join")
+    public String joinTeamForm(Model model){
+        model.addAttribute("joinTeamForm", new JoinTeamForm());
+        return "/team/joinTeamForm";
+    }
+
+    @PostMapping("/members/team/join")
+    public String joinTeam(@Valid @ModelAttribute("joinTeamForm") JoinTeamForm form, @SessionAttribute("loginMember")Member member, HttpServletRequest request){
+
+        memberService.modifyForJoinTeam(member.getId(), form);
 
         return "redirect:/";
     }

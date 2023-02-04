@@ -1,5 +1,6 @@
 package jinwoo.basetown.controller;
 
+import jinwoo.basetown.dto.JoinTeamForm;
 import jinwoo.basetown.dto.TeamForm;
 import jinwoo.basetown.entity.Team;
 import jinwoo.basetown.repository.TeamRepository;
@@ -16,7 +17,7 @@ public class TeamController {
     private final TeamRepository teamRepository;
 
     @GetMapping("/team/new")
-    public String createTeam(Model model){
+    public String createForm(Model model){
         model.addAttribute("teamForm", new TeamForm());
         return "team/createTeamForm";
     }
