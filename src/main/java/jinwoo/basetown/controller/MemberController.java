@@ -43,6 +43,8 @@ public class MemberController {
         if (result.hasErrors())
             return "members/createMemberForm";
 
+
+
         memberService.join(form);
 
         return "redirect:/";
