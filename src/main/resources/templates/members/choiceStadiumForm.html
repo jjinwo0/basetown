@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<style>
+  .fieldError {
+    border-color: #bd2130;
+  } </style>
+<body>
+<div class="container">
+  <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+  <form role="form" action="/api" th:object="${choiceStadiumForm}" method="post">
+    <div class="form-group">
+      <input type="text" class ="form-control" id="keyword" placeholder="검색어를 입력하세요">
+      <button type="button" class="btn btn-primary" id="btn-stadium-find">검색</button>
+    </div>
+  </form>
+  <br/>
+  <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+
+<script>
+  var main = {
+    init : function () {
+      var _this = this;
+      $('#btn-stadium-find').on('click', function () {
+        _this.find();
+      });
+    },
+    find : function () {
+      var keyword = $('#keyword').val();
+
+      $.ajax({
+        type: 'GET',
+        url: '/api/stadium/'+keyword,
+        dataType: 'json',
+        contentType:'application/json; charset=utf-8',
+      }).done(function(res) {
+        alert(JSON.stringify(res));
+      }).fail(function (error) {
+        alert(JSON.stringify(error));
+      });
+    }
+  };
+
+  main.init();
+</script>
+</body>
+</html>

@@ -31,9 +31,6 @@ public class Member extends TimeEntity{
     @JoinColumn(name = "team_id")
     private Team team;
 
-    @ManyToOne
-    @JoinColumn(name = "team_id")
-    private Team teamForMerc;
 
     //Constructor
     public Member(String username) {
