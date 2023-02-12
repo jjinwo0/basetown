@@ -24,10 +24,16 @@ public class Member extends TimeEntity{
     private String address;
     private String position;
     private Role role;
+    private String lastJoinTeamName;
+    private TeamRole teamRole;
 
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team teamForMerc;
 
     //Constructor
     public Member(String username) {

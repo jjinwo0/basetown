@@ -1,6 +1,6 @@
 package jinwoo.basetown.controller;
 
-import jinwoo.basetown.dto.SigninForm;
+import jinwoo.basetown.form.SigninForm;
 import jinwoo.basetown.entity.Member;
 import jinwoo.basetown.service.MemberService;
 import jinwoo.basetown.service.SigninService;

@@ -1,10 +1,9 @@
 package jinwoo.basetown.service;
 
-import jinwoo.basetown.dto.AuthForm;
-import jinwoo.basetown.dto.JoinTeamForm;
-import jinwoo.basetown.dto.MemberForm;
+import jinwoo.basetown.form.AuthForm;
+import jinwoo.basetown.form.JoinTeamForm;
+import jinwoo.basetown.form.MemberForm;
 import jinwoo.basetown.entity.Member;
-import jinwoo.basetown.entity.Role;
 import jinwoo.basetown.entity.Team;
 import jinwoo.basetown.repository.MemberRepository;
 import jinwoo.basetown.repository.TeamRepository;

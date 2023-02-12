@@ -4,7 +4,7 @@
 <body>
 <div class="container">
   <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-  <form th:action="@{/items/new}" th:object="${joinTeamForm}" method="post">
+  <form th:action="@{/items/new}" th:object="${joinMercForm}" method="post">
     <div class="form-group">
       <label th:for="teamName">팀명</label>
       <input type="text" th:field="*{teamName}" class="form-control"
@@ -21,18 +21,13 @@
     </div>
 
     <div class="form-group">
+      <label th:for="address">나이</label>
+      <input type="text" th:field="*{address}" class="form-control" placeholder="주소를 입력하세요">
+    </div>
+
+    <div class="form-group">
       <label th:for="position">포지션</label>
       <input type="text" th:field="*{position}" class="form-control" placeholder="선호 포지션을 입력하세요">
-    </div>
-
-    <div class="form-group">
-      <label th:for="presentation">소개</label>
-      <input type="text" th:field="*{presentation}" class="form-control" placeholder="간략한 자기소개를 입력하세요">
-    </div>
-
-    <div class="form-group">
-      <label th:for="reason">사유</label>
-      <input type="text" th:field="*{reason}" class="form-control" placeholder="지원 사유를 입력하세요">
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>

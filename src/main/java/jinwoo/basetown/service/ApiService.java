@@ -3,6 +3,9 @@ package jinwoo.basetown.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.ConstructorBinding;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -24,10 +27,10 @@ import java.util.Map;
 public class ApiService {
 
     @Value("${data-api-key}")
-    private final String key = "";
+    private String key;
 
     private final String urlStr = "https://openapi.gg.go.kr/PublicTrainingFacilityBasebal?" +
-            "KEY=76095f78fdfd4d32a78624b062847de3&" +
+            "KEY="+key+"&" +
             "Type=json&" +
             "pindex=1&" +
             "pSize=100";

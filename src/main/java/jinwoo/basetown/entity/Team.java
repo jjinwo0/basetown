@@ -1,5 +1,6 @@
 package jinwoo.basetown.entity;
 
+import jinwoo.basetown.form.MemberForm;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,6 +23,9 @@ public class Team {
 
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
+
+    @OneToMany(mappedBy = "teamForMerc")
+    private List<Member> membersForMerc = new ArrayList<>();
 
     public Team(String name) {
         this.name = name;

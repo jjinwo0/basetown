@@ -1,4 +1,4 @@
-package jinwoo.basetown.dto;
+package jinwoo.basetown.form;
 
 public class MemberDto {
 

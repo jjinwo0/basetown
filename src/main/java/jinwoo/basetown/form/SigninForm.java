@@ -1,4 +1,4 @@
-package jinwoo.basetown.dto;
+package jinwoo.basetown.form;
 
 import lombok.Getter;
 import lombok.Setter;

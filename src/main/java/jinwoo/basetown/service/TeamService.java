@@ -1,13 +1,19 @@
 package jinwoo.basetown.service;
 
+import jinwoo.basetown.entity.Member;
 import jinwoo.basetown.entity.Team;
+import jinwoo.basetown.entity.TeamRole;
+import jinwoo.basetown.form.JoinMercForm;
 import jinwoo.basetown.repository.TeamRepository;
+import jinwoo.basetown.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -35,5 +41,16 @@ public class TeamService {
 
     public Team findOne(Long id){
         return teamRepository.findOne(id);
+    }
+
+    @Transactional
+    public void joinMerc(HttpSession session, @Valid JoinMercForm form){
+
+        Member sessionMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        Team findTeam = teamRepository.findTeamByName(form.getName());
+
+
+        sessionMember.setLastJoinTeamName(form.getTeamName());
+        sessionMember.setTeamRole(TeamRole.MERCENARY);
     }
 }

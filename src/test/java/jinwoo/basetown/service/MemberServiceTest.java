@@ -1,10 +1,9 @@
 package jinwoo.basetown.service;
 
-import jinwoo.basetown.dto.AuthForm;
-import jinwoo.basetown.dto.MemberForm;
+import jinwoo.basetown.form.AuthForm;
+import jinwoo.basetown.form.MemberForm;
 import jinwoo.basetown.entity.Member;
 import jinwoo.basetown.repository.MemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

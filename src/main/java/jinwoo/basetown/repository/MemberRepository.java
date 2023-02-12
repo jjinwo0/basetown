@@ -1,6 +1,6 @@
 package jinwoo.basetown.repository;
 
-import jinwoo.basetown.dto.MemberDto;
+import jinwoo.basetown.form.MemberDto;
 import jinwoo.basetown.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +18,7 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     @Query("select m.username from Member m")
     List<Member> findUsernameList();
 
-    @Query("select new jinwoo.basetown.dto.MemberDto(m.id, m.username, m.name, t.name) from Member m join m.team t")
+    @Query("select new jinwoo.basetown.form.MemberDto(m.id, m.username, m.name, t.name) from Member m join m.team t")
     List<MemberDto> findMemberDto();
 
     @Query("select m from Member m where m.username = :names")
